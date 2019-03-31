@@ -23,6 +23,7 @@ public class Categoria implements Serializable{
 	
 	//@JsonManagedReference irá trazer os objetos associados, foi substiuido por JsonIgnore na classe associada
 	@ManyToMany(mappedBy="categorias")
+	//@OnDelete(action = OnDeleteAction.CASCADE) delete a categorias e os produtos associados a ela
 	private List<Produto> produtos = new ArrayList<>();
 	
 	public Categoria() {

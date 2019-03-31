@@ -39,7 +39,6 @@ public class Produto implements Serializable{
 			//id que irá referenciar a categoria
 			inverseJoinColumns=@JoinColumn(name="categoria_id")			
 			)
-	
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
