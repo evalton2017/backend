@@ -13,6 +13,7 @@ import com.curso.run.model.Cidade;
 import com.curso.run.model.Cliente;
 import com.curso.run.model.Endereco;
 import com.curso.run.model.Estado;
+import com.curso.run.model.ItemPedido;
 import com.curso.run.model.Pagamento;
 import com.curso.run.model.PagamentoComBoleto;
 import com.curso.run.model.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.curso.run.repositories.CidadeRepository;
 import com.curso.run.repositories.ClienteRepository;
 import com.curso.run.repositories.EnderecoRepository;
 import com.curso.run.repositories.EstadoRepository;
+import com.curso.run.repositories.ItemPedidoRepository;
 import com.curso.run.repositories.PagamentoRepository;
 import com.curso.run.repositories.PedidoRepository;
 import com.curso.run.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class CursoApp implements CommandLineRunner {
 	private PedidoRepository pedRepo;
 	@Autowired
 	private PagamentoRepository pagRepo;
+	@Autowired
+	private ItemPedidoRepository itpRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApp.class, args);
@@ -119,6 +123,18 @@ public class CursoApp implements CommandLineRunner {
 		pedRepo.saveAll(Arrays.asList(ped1,ped2));
 		pagRepo.saveAll(Arrays.asList(pg1,pg2));
 		
+		//Instanciar itens 
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 2, 4000D);
+		ItemPedido ip2 = new ItemPedido(ped2, p3, 0.00, 3, 105D);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, 850D);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1));
+		ped2.getItens().addAll(Arrays.asList(ip2,ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip2,ip3));
+		
+		itpRepo.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 	}
 
