@@ -28,7 +28,7 @@ public abstract class Pagamento implements Serializable {
 	@JoinColumn(name="pedido_id")
 	@MapsId
 	private Pedido pedido;
-	
+
 	public Pagamento() {
 		
 	}
@@ -36,7 +36,7 @@ public abstract class Pagamento implements Serializable {
 	public Pagamento(Long id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		this.estado =(estado==null)?null :estado.getCod();
 		this.pedido = pedido;
 	}
 
