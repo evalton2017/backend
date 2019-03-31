@@ -108,7 +108,7 @@ public class CursoApp implements CommandLineRunner {
 		endRepo.saveAll(Arrays.asList(e1,e2));
 		
 		//Instanciar pedido e pagamento
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:MM");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido ped1 = new Pedido(null,sdf.parse("30/02/2019 09:45"),cli1, e1);
 		Pedido ped2 = new Pedido(null,sdf.parse("04/04/2019 14:35"),cli1, e2);
 		
