@@ -23,7 +23,7 @@ public class ClienteResources {
 	private ClienteService service;
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Cliente> buscar(@PathVariable Long id) throws ObjectNotFoundException {
 		Cliente cat = service.buscar(id);
 		return ResponseEntity.ok().body(cat);
 	}
