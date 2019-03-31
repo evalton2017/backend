@@ -100,7 +100,7 @@ public class CursoApp implements CommandLineRunner {
 		cidRepo.saveAll(Arrays.asList(cid1,cid2,cid3));
 		
 		//Instanciar Clientes e endereços
-		Cliente cli1 = new Cliente(null,"Duke","duke@gmail.com","3256666699",TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null,"Duke Gomes","duke@gmail.com","3256666699",TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("61-995662222","61-991383624"));
 				
 		Endereco e1 = new Endereco(null,"Quadra 14","29","","São jose","71693015",cli1,cid3);

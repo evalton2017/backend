@@ -13,6 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.curso.run.model.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +29,11 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty(message="Preenchimento Obrigatorio")
+	@Length(min=5, max=80, message="O tamanho não pode ser menor que 5 e maior que 80")
 	private String nome;
+	@NotEmpty(message="Preenchimento Obrigatorio")
+	@Email(message="Email invalido")
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
@@ -53,7 +61,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo==null)?null:tipo.getCod();
 	}
 
 	public Long getId() {
