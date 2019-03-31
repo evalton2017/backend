@@ -1,5 +1,6 @@
 package com.curso.run.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.curso.run.dto.ClienteDTO;
+import com.curso.run.dto.ClienteNewDTO;
 import com.curso.run.model.Cliente;
 import com.curso.run.services.ClienteService;
 
@@ -32,6 +35,15 @@ public class ClienteResources {
 	public ResponseEntity<Cliente> buscar(@PathVariable Long id) throws ObjectNotFoundException {
 		Cliente cat = service.buscar(id);
 		return ResponseEntity.ok().body(cat);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO){
+		Cliente obj = service.fromDTO(objDTO);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				  .path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
