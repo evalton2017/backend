@@ -63,6 +63,10 @@ public class CursoApp implements CommandLineRunner {
 		//Instancia a categoria
 		Categoria cat1 = new Categoria(null,"Informatica");
 		Categoria cat2 = new Categoria(null,"Brinquedos");
+		Categoria cat3 = new Categoria(null,"Cozinha");
+		Categoria cat4 = new Categoria(null,"Ferramentas");
+		Categoria cat5 = new Categoria(null,"Eletronicos");
+		Categoria cat6 = new Categoria(null,"Banho");
 		
 		//Instancia os produtos
 		Produto p1 = new Produto(null,"Notebook",2000D);
@@ -79,7 +83,7 @@ public class CursoApp implements CommandLineRunner {
 		cat2.getProdutos().addAll(Arrays.asList(p3));
 		
 		//Salva categoria e produto				
-		catRepo.saveAll(Arrays.asList(cat1,cat2));
+		catRepo.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6));
 		proRepo.saveAll(Arrays.asList(p1,p2,p3));
 		
 		Estado est1 = new Estado(null, "Goias");
