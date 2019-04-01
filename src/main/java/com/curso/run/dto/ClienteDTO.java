@@ -3,7 +3,9 @@ package com.curso.run.dto;
 import java.io.Serializable;
 
 import com.curso.run.model.Cliente;
+import com.curso.run.services.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
