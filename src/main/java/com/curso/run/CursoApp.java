@@ -137,7 +137,7 @@ public class CursoApp implements CommandLineRunner {
 		pagRepo.saveAll(Arrays.asList(pg1,pg2));
 		
 		//Instanciar itens 
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 2, 4000D);
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 2, 2000D);
 		ItemPedido ip2 = new ItemPedido(ped2, p3, 0.00, 3, 105D);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, 850D);
 		
