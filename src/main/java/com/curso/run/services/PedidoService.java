@@ -1,6 +1,5 @@
 package com.curso.run.services;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
@@ -11,6 +10,7 @@ import com.curso.run.model.ItemPedido;
 import com.curso.run.model.PagamentoComBoleto;
 import com.curso.run.model.Pedido;
 import com.curso.run.model.enums.EstadoPagamento;
+import com.curso.run.repositories.ClienteRepository;
 import com.curso.run.repositories.ItemPedidoRepository;
 import com.curso.run.repositories.PagamentoRepository;
 import com.curso.run.repositories.PedidoRepository;
@@ -34,6 +34,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ItemPedidoRepository itRepo;
+
+	@Autowired
+	private ClienteService cliServ;
 	
 	public Pedido buscar(Long id){
 		Optional<Pedido> cat = repo.findById(id);
@@ -44,6 +47,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(cliServ.buscar(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -55,12 +59,13 @@ public class PedidoService {
 		pagRepo.save(obj.getPagamento());
 		for(ItemPedido ip:obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(prodService.buscar(ip.getProduto().getId()).getPreco());
+			ip.setProduto(prodService.buscar(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		
 		itRepo.saveAll(obj.getItens());
-		
+		System.out.println(obj);
 		return obj;
 		
 		
