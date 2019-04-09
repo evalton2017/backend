@@ -10,11 +10,11 @@ import com.curso.run.model.ItemPedido;
 import com.curso.run.model.PagamentoComBoleto;
 import com.curso.run.model.Pedido;
 import com.curso.run.model.enums.EstadoPagamento;
-import com.curso.run.repositories.ClienteRepository;
 import com.curso.run.repositories.ItemPedidoRepository;
 import com.curso.run.repositories.PagamentoRepository;
 import com.curso.run.repositories.PedidoRepository;
 import com.curso.run.services.Exception.ObjectNotFoundException;
+import com.curso.run.services.validation.EmailService;
 
 
 @Service
@@ -37,6 +37,9 @@ public class PedidoService {
 
 	@Autowired
 	private ClienteService cliServ;
+	
+	@Autowired
+	private EmailService emailServ;
 	
 	public Pedido buscar(Long id){
 		Optional<Pedido> cat = repo.findById(id);
@@ -65,7 +68,7 @@ public class PedidoService {
 		}
 		
 		itRepo.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailServ.sendOrderConfirmationEmail(obj);
 		return obj;
 		
 		

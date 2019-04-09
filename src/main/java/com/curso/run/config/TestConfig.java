@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.curso.run.services.MockEmailService;
 import com.curso.run.services.validation.DBService;
+import com.curso.run.services.validation.EmailService;
 
 @Configuration
 @Profile("test")
@@ -21,6 +23,11 @@ public class TestConfig {
 		
 		dbService.instantiateTestDatabase();
 		return true;
+	}
+	
+	@Bean//fica disponivel como componente no sistema
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 
 }
