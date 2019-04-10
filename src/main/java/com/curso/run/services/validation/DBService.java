@@ -20,6 +20,7 @@ import com.curso.run.model.PagamentoComCartao;
 import com.curso.run.model.Pedido;
 import com.curso.run.model.Produto;
 import com.curso.run.model.enums.EstadoPagamento;
+import com.curso.run.model.enums.Perfil;
 import com.curso.run.model.enums.TipoCliente;
 import com.curso.run.repositories.CategoriaRepository;
 import com.curso.run.repositories.CidadeRepository;
@@ -105,15 +106,22 @@ public class DBService {
 		cidRepo.saveAll(Arrays.asList(cid1, cid2, cid3));
 
 		// Instanciar Clientes e endereços
-		Cliente cli1 = new Cliente(null, "Duke Gomes", "tatussdf@gmail.com", "3256666699", TipoCliente.PESSOAFISICA, pe.encode("123456") );
-		cli1.getTelefones().addAll(Arrays.asList("61-995662222", "61-991383624"));
-
+			
+		Cliente cli1 = new Cliente(null, "Duke Gomes", "duke.ndsg@gmail.com", "04022590092", TipoCliente.PESSOAFISICA, pe.encode("123456") );
+		cli1.getTelefones().addAll(Arrays.asList("61-995662222", "61-95655555"));
+		
+		Cliente cli2 = new Cliente(null, "Evalton Gomes", "tatussdf@gmail.com", "99868159083", TipoCliente.PESSOAFISICA, pe.encode("123") );
+		cli2.getTelefones().addAll(Arrays.asList("61-995555566", "61-99255666"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 		Endereco e1 = new Endereco(null, "Quadra 14", "29", "", "São jose", "71693015", cli1, cid3);
 		Endereco e2 = new Endereco(null, "Quadra 15", "19", "", "São jose", "71693023", cli1, cid3);
+		Endereco e3 = new Endereco(null, "Quadra 22", "39", "", "São jose", "71693023", cli2, cid3);
 
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-		cliRepo.saveAll(Arrays.asList(cli1));
+		cliRepo.saveAll(Arrays.asList(cli1,cli2));
 		endRepo.saveAll(Arrays.asList(e1, e2));
 
 		// Instanciar pedido e pagamento
