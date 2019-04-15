@@ -32,8 +32,6 @@ public class UserSS implements UserDetails {
 		this.authorities = perfis.stream().map(x-> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
@@ -54,28 +52,25 @@ public class UserSS implements UserDetails {
 		return email;
 	}
 
+
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		return true;
+}
 
 }
