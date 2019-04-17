@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.curso.run.services.Exception.AuthorizationException;
 import com.curso.run.services.Exception.DataIntegrityException;
 import com.curso.run.services.Exception.ObjectNotFoundException;
 
@@ -41,6 +42,14 @@ public class ResourceExceptionHandler {
 			err.addError(er.getField(), er.getDefaultMessage());
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+	
+	//retorna o erro quando O usuario não tem permissão, ou seja, acesso negado
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandarError> Authorization(AuthorizationException e, HttpServletRequest request){
+		
+		StandarError err = new StandarError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 	
 	

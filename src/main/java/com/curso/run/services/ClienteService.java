@@ -12,14 +12,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.curso.run.Security.UserSS;
 import com.curso.run.dto.ClienteDTO;
 import com.curso.run.dto.ClienteNewDTO;
 import com.curso.run.model.Cidade;
 import com.curso.run.model.Cliente;
 import com.curso.run.model.Endereco;
+import com.curso.run.model.enums.Perfil;
 import com.curso.run.model.enums.TipoCliente;
 import com.curso.run.repositories.ClienteRepository;
 import com.curso.run.repositories.EnderecoRepository;
+import com.curso.run.services.Exception.AuthorizationException;
 import com.curso.run.services.Exception.DataIntegrityException;
 import com.curso.run.services.Exception.ObjectNotFoundException;
 
@@ -37,6 +40,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 	
 	public Cliente buscar(Long id){
+		
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("acesso negado");
+		}
+		
 		Optional<Cliente> cat = repo.findById(id);
 		return cat.orElseThrow(()-> new ObjectNotFoundException(
 				"Cliente não encontrada Id:"+id+", tipo: "+ Cliente.class.getName()));
