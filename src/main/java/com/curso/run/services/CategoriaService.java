@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.curso.run.dto.CategoriaDTO;
 import com.curso.run.model.Categoria;
+import com.curso.run.model.Pedido;
 import com.curso.run.repositories.CategoriaRepository;
 import com.curso.run.services.Exception.DataIntegrityException;
 import com.curso.run.services.Exception.ObjectNotFoundException;
@@ -66,7 +67,6 @@ public class CategoriaService {
 	private void updateData(Categoria newObj, Categoria obj) {
 		newObj.setNome(obj.getNome());
 	}
-	
 	
 	
 }
